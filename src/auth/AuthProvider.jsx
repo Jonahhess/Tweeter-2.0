@@ -41,6 +41,11 @@ export function AuthProvider({ children }) {
   //   }
   // };
 
+  const handleLogout = () => {
+    setActiveUser(null);
+    navigate("/");
+  };
+
   // const handleLogout = async () => {
   //   const { error } = await supabase.auth.signOut();
   //   if (error) {
@@ -52,10 +57,7 @@ export function AuthProvider({ children }) {
   // };
 
   return (
-    <AuthContext
-      value={{ activeUser, handleLogin }}
-      // value={{ activeUser}, onLogin: handleLogin, onLogout: handleLogout }}
-    >
+    <AuthContext value={{ activeUser, handleLogin, handleLogout }}>
       {children}
     </AuthContext>
   );
