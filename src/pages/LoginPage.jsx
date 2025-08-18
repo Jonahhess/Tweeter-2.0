@@ -18,18 +18,23 @@ export default function LoginPage() {
   });
 
   return (
-    <form onSubmit={form.onSubmit((values) => handleLogin(values.activeUser))}>
+    <form
+      style={{ display: "flex" }}
+      onSubmit={form.onSubmit((values) => handleLogin(values.activeUser))}
+    >
       <TextInput
+        w={200}
         withAsterisk
-        label="Username"
-        placeholder="john"
+        placeholder="Enter username"
         key={form.key("activeUser")}
         {...form.getInputProps("activeUser")}
       />
-
-      <Group justify="flex-end" mt="md">
-        <Button type="submit">Submit</Button>
-      </Group>
+      <Button
+        style={{ alignSelf: "flex-start", marginLeft: "0.1rem" }}
+        type="submit"
+      >
+        Submit
+      </Button>
     </form>
   );
 }
