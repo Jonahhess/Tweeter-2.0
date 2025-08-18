@@ -6,8 +6,12 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import { AuthProvider } from "./auth/AuthProvider";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
+import { useState } from "react";
 
 function App() {
+  const [tweets, setTweets] = useState(
+    JSON.parse(localStorage.getItem("tweets")) || []
+  );
   return (
     <>
       <AuthProvider>
@@ -17,7 +21,7 @@ function App() {
               path="/"
               element={
                 <ProtectedRoute>
-                  <HomePage />
+                  <HomePage tweets={tweets} setTweets={setTweets} />
                 </ProtectedRoute>
               }
             />
@@ -26,7 +30,7 @@ function App() {
               path="/profile"
               element={
                 <ProtectedRoute>
-                  <ProfilePage />
+                  <ProfilePage tweets={tweets} />
                 </ProtectedRoute>
               }
             />
