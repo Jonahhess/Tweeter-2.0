@@ -6,12 +6,27 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import { AuthProvider } from "./auth/AuthProvider";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getTweets, postTweet } from "./data/serverAPI";
 
 function App() {
-  const [tweets, setTweets] = useState(
-    JSON.parse(localStorage.getItem("tweets")) || []
-  );
+  const [tweets, setTweets] = useState(null);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getTweets();
+      setTweets(data);
+    }
+    getData();
+  }, []);
+
+  async function handlePost(tweet) {
+    console.log(tweet);
+    const post = await postTweet(tweet);
+    const data = await getTweets();
+    setTweets(data);
+  }
+
   return (
     <>
       <AuthProvider>
@@ -21,7 +36,7 @@ function App() {
               path="/"
               element={
                 <ProtectedRoute>
-                  <HomePage tweets={tweets} setTweets={setTweets} />
+                  <HomePage tweets={tweets} handlePost={handlePost} />
                 </ProtectedRoute>
               }
             />
