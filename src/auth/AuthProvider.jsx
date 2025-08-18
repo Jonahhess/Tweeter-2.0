@@ -21,7 +21,6 @@ export function AuthProvider({ children }) {
   }, [activeUser]);
 
   const handleLogin = (username) => {
-    console.log(username);
     setActiveUser(username);
     navigate("/profile");
   };
