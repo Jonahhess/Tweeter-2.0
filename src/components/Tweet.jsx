@@ -17,10 +17,10 @@ export default function Tweet({ title, newTweet, setNewTweet, addTweet }) {
         value={newTweet}
         onChange={(e) => setNewTweet(e.target.value)}
       />
-      <Text>Tweet Length: {newTweet.length}</Text>
       <Text>Remaining: {140 - newTweet.length}</Text>
-      {newTweet.length <= 140 && <Button onClick={addTweet}>Submit</Button>}
-      {newTweet.length > 140 && <Button disabled={true}>Submit</Button>}
+      <Button onClick={addTweet} disabled={newTweet.length > 140}>
+        Submit
+      </Button>
     </Card>
   );
 }
