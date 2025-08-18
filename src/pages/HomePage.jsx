@@ -1,13 +1,44 @@
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
+import Tweet from "../components/Tweet";
+import ReadOnlyTweet from "../components/ReadOnlyTweet";
 
-export default function HomePage() {
-  const { activeUser, handleLogout } = useAuth();
-  const navigate = useNavigate();
+export default function HomePage({ tweets, setTweets }) {
+  const { activeUser } = useAuth();
+  const [newTweet, setNewTweet] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("tweets", JSON.stringify(tweets));
+  }, [tweets]);
+
+  function addTweet() {
+    if (newTweet && typeof newTweet === "string") {
+      setTweets([
+        { content: newTweet, username: activeUser, date: Date.now() },
+        ...tweets,
+      ]);
+      setNewTweet("");
+    }
+  }
+
   return (
     <>
-      {!activeUser && <button onClick={() => navigate("/login")}>Login</button>}
-      {activeUser && <button onClick={handleLogout}>Log Out</button>}
+      <Tweet
+        title="New Tweet"
+        newTweet={newTweet}
+        setNewTweet={setNewTweet}
+        addTweet={addTweet}
+      />
+      <div id="tweets" style={{ display: "flex" }}>
+        {tweets?.map((tweet) => (
+          <ReadOnlyTweet
+            key={tweet.date}
+            content={tweet.content}
+            username={tweet.username}
+            date={tweet.date}
+          />
+        ))}
+      </div>
     </>
   );
 }
