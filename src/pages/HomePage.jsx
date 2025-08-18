@@ -1,26 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import Tweet from "../components/Tweet";
 import ReadOnlyTweet from "../components/ReadOnlyTweet";
 
-export default function HomePage({ tweets, setTweets }) {
+export default function HomePage({ tweets, handlePost }) {
   const { activeUser } = useAuth();
   const [newTweet, setNewTweet] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("tweets", JSON.stringify(tweets));
-  }, [tweets]);
-
-  function addTweet() {
+  async function addTweet() {
     if (newTweet && typeof newTweet === "string") {
-      setTweets([
-        {
-          content: newTweet,
-          username: activeUser,
-          date: new Date(Date.now()).toISOString(),
-        },
-        ...tweets,
-      ]);
+      const tweet = {
+        content: newTweet,
+        userName: activeUser,
+        date: new Date(Date.now()).toISOString(),
+      };
+      await handlePost(tweet);
       setNewTweet("");
     }
   }
