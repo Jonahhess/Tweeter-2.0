@@ -14,7 +14,11 @@ export default function HomePage({ tweets, setTweets }) {
   function addTweet() {
     if (newTweet && typeof newTweet === "string") {
       setTweets([
-        { content: newTweet, username: activeUser, date: Date.now() },
+        {
+          content: newTweet,
+          username: activeUser,
+          date: new Date(Date.now()).toISOString(),
+        },
         ...tweets,
       ]);
       setNewTweet("");
@@ -29,7 +33,7 @@ export default function HomePage({ tweets, setTweets }) {
         setNewTweet={setNewTweet}
         addTweet={addTweet}
       />
-      <div id="tweets" style={{ display: "flex" }}>
+      <div id="tweets" className="card" style={{ textAlign: "center" }}>
         {tweets?.map((tweet) => (
           <ReadOnlyTweet
             key={tweet.date}
