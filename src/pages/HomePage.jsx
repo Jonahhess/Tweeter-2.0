@@ -33,14 +33,19 @@ export default function HomePage({ tweets, setTweets }) {
         setNewTweet={setNewTweet}
         addTweet={addTweet}
       />
-      <div id="tweets" className="card" style={{ textAlign: "center" }}>
+      <div
+        id="tweets"
+        className="card"
+        style={{ textAlign: "center", marginTop: "1rem" }}
+      >
         {tweets?.map((tweet) => (
-          <ReadOnlyTweet
-            key={tweet.date}
-            content={tweet.content}
-            username={tweet.username}
-            date={tweet.date}
-          />
+          <div key={tweet.date} style={{ marginBottom: "1rem" }}>
+            <ReadOnlyTweet
+              content={tweet.content}
+              username={tweet.username}
+              date={tweet.date}
+            />
+          </div>
         ))}
       </div>
     </>
