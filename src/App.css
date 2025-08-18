@@ -1,5 +1,5 @@
-#card {
-  width: 300px;
+.card {
+  width: 400px;
   aspect-ratio: 1;
   margin: 0 auto;
 }
