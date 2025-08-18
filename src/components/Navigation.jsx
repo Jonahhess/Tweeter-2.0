@@ -8,7 +8,7 @@ const Navigation = () => {
       style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "flex-start",
+        justifyContent: "space-between",
         gap: "1rem",
         minHeight: "60px",
         padding: "0 1rem",
@@ -16,16 +16,23 @@ const Navigation = () => {
         backgroundColor: "lightgrey",
       }}
     >
-      <Link to="/">Home</Link>
-      <Link to="/profile">Profile</Link>
       <div style={{ display: "flex", gap: "1rem" }}>
-        {activeUser && (
-          <>
-            <p>Welcome {activeUser}</p>
-            <button onClick={handleLogout}>Log Out</button>
-          </>
-        )}
+        <Link to="/">Home</Link>
+        <Link to="/profile">Profile</Link>
       </div>
+
+      {activeUser && (
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+            justifyContent: "flex-end",
+          }}
+        >
+          <p>Welcome {activeUser}</p>
+          <button onClick={handleLogout}>Log Out</button>
+        </div>
+      )}
     </div>
   );
 };
