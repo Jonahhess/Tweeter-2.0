@@ -3,7 +3,7 @@ import { Card, Button, Text } from "@mantine/core";
 export default function Tweet({ title, newTweet, setNewTweet, addTweet }) {
   return (
     <Card
-      id="card"
+      className="card"
       shadow="sm"
       padding="lg"
       radius="md"
