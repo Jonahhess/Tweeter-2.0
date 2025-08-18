@@ -19,7 +19,7 @@ export default function LoginPage() {
 
   return (
     <form
-      style={{ display: "flex" }}
+      style={{ display: "flex", marginTop: "0.25rem" }}
       onSubmit={form.onSubmit((values) => handleLogin(values.activeUser))}
     >
       <TextInput
