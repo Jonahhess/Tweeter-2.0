@@ -21,10 +21,8 @@ function App() {
   }, []);
 
   async function handlePost(tweet) {
-    console.log(tweet);
     const post = await postTweet(tweet);
-    const data = await getTweets();
-    setTweets(data);
+    return post;
   }
 
   return (
