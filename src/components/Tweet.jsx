@@ -1,6 +1,12 @@
 import { Card, Button, Text } from "@mantine/core";
 
-export default function Tweet({ title, newTweet, setNewTweet, addTweet }) {
+export default function Tweet({
+  title,
+  newTweet,
+  setNewTweet,
+  addTweet,
+  isPosting,
+}) {
   return (
     <Card
       className="card"
@@ -18,7 +24,7 @@ export default function Tweet({ title, newTweet, setNewTweet, addTweet }) {
         onChange={(e) => setNewTweet(e.target.value)}
       />
       <Text>Remaining: {140 - newTweet.length}</Text>
-      <Button onClick={addTweet} disabled={newTweet.length > 140}>
+      <Button onClick={addTweet} disabled={newTweet.length > 140 || isPosting}>
         Submit
       </Button>
     </Card>
