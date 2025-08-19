@@ -13,7 +13,7 @@ export default function LoginPage() {
 
     validate: {
       activeUser: (value) =>
-        /^[a-zA-Z].{1,}$/.test(value) ? null : "Invalid username",
+        /^[a-zA-Z].{1,}$/.test(value) ? null : "Invalid userName",
     },
   });
 
@@ -25,7 +25,7 @@ export default function LoginPage() {
       <TextInput
         w={200}
         withAsterisk
-        placeholder="Enter username"
+        placeholder="Enter userName"
         key={form.key("activeUser")}
         {...form.getInputProps("activeUser")}
       />
