@@ -31,7 +31,7 @@ export function AuthProvider({ onAuthReady, children }) {
       throw error;
     } else {
       setActiveUser(data.user);
-      navigate("/");
+      navigate("/weeter-2.0/");
     }
   };
 
@@ -42,7 +42,7 @@ export function AuthProvider({ onAuthReady, children }) {
       throw error;
     }
     setActiveUser(null);
-    navigate("/login");
+    navigate("/weeter-2.0/login");
   };
 
   return (
