@@ -44,7 +44,7 @@ export default function HomePage() {
         style={{ textAlign: "center", marginTop: "1rem" }}
       >
         {tweets?.toReversed().map((tweet) => (
-          <div key={tweet?.id} style={{ marginBottom: "1rem" }}>
+          <div key={tweet?.date} style={{ marginBottom: "1rem" }}>
             <ReadOnlyTweet
               content={tweet.content}
               userName={tweet.userName}
