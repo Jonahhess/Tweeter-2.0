@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import Tweet from "../components/Tweet";
 import ReadOnlyTweet from "../components/ReadOnlyTweet";
+import { useTweets } from "../components/TweetsProvider";
 
-export default function HomePage({ tweets, handlePost }) {
+export default function HomePage() {
+  const { tweets, handlePost } = useTweets();
   const { activeUser } = useAuth();
   const [newTweet, setNewTweet] = useState("");
   const [isPosting, setIsPosting] = useState(false);
