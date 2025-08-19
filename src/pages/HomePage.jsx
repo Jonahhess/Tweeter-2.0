@@ -6,16 +6,25 @@ import ReadOnlyTweet from "../components/ReadOnlyTweet";
 export default function HomePage({ tweets, handlePost }) {
   const { activeUser } = useAuth();
   const [newTweet, setNewTweet] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
 
   async function addTweet() {
     if (newTweet && typeof newTweet === "string") {
+      setIsPosting(true);
       const tweet = {
         content: newTweet,
         userName: activeUser,
         date: new Date(Date.now()).toISOString(),
       };
-      await handlePost(tweet);
       setNewTweet("");
+      try {
+        const post = await handlePost(tweet);
+        console.log(post);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsPosting(false);
+      }
     }
   }
 
@@ -26,6 +35,7 @@ export default function HomePage({ tweets, handlePost }) {
         newTweet={newTweet}
         setNewTweet={setNewTweet}
         addTweet={addTweet}
+        isPosting={isPosting}
       />
       <div
         id="tweets"
