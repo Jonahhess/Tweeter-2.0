@@ -1,59 +1,49 @@
 import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router";
-// import { supabase } from "../data/supabase";
+import { supabase } from "../data/supabase";
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
-  const [activeUser, setActiveUser] = useState(
-    JSON.parse(localStorage.getItem("activeUser")) || null
-  );
-  const isMounted = useRef(false);
+export function AuthProvider({ onAuthReady, children }) {
+  const [activeUser, setActiveUser] = useState();
   const navigate = useNavigate();
 
-  // run only after notes have been loaded from first useEffect
   useEffect(() => {
-    if (isMounted.current) {
-      localStorage.setItem("activeUser", JSON.stringify(activeUser));
+    const fetchSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      // checking if there is an open session
+      if (data && data.session && data.session.user) {
+        setActiveUser(data.session.user);
+      }
+      onAuthReady();
+    };
+    fetchSession();
+  }, []);
+
+  const handleLogin = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.log(error);
+      throw error;
     } else {
-      isMounted.current = true;
+      setActiveUser(data.user);
+      navigate("/");
     }
-  }, [activeUser]);
-
-  const handleLogin = (userName) => {
-    setActiveUser(userName);
-    navigate("/profile");
   };
 
-  // const handleLogin = async (email, password) => {
-  //   const { data, error } = await supabase.auth.signInWithPassword({
-  //     email,
-  //     password,
-  //   });
-
-  //   if (error) {
-  //     console.log(error);
-  //     throw error;
-  //   } else {
-  //     setActiveUser(data.user);
-  //     navigate("/movies");
-  //   }
-  // };
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.log(error);
+      throw error;
+    }
     setActiveUser(null);
-    navigate("/");
+    navigate("/login");
   };
-
-  // const handleLogout = async () => {
-  //   const { error } = await supabase.auth.signOut();
-  //   if (error) {
-  //     console.log(error);
-  //     throw error;
-  //   }
-  //   setActiveUser(null);
-  //   navigate("/");
-  // };
 
   return (
     <AuthContext value={{ activeUser, handleLogin, handleLogout }}>
