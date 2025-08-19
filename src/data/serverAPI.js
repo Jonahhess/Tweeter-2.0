@@ -14,10 +14,19 @@ async function getTweets() {
 }
 
 async function postTweet(tweet) {
+  console.log(tweet);
   const post = await fetch(url, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json", // <-- Add this line
+    },
     body: JSON.stringify(tweet),
   });
+
+  if (!post.ok) {
+    const errorText = await post.text();
+    console.log(errorText);
+  }
 }
 
 export { getTweets, postTweet };
