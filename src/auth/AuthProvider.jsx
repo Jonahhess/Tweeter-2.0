@@ -20,8 +20,8 @@ export function AuthProvider({ children }) {
     }
   }, [activeUser]);
 
-  const handleLogin = (username) => {
-    setActiveUser(username);
+  const handleLogin = (userName) => {
+    setActiveUser(userName);
     navigate("/profile");
   };
 
