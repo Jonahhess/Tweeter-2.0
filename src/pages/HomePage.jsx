@@ -19,7 +19,6 @@ export default function HomePage({ tweets, handlePost }) {
       setNewTweet("");
       try {
         const post = await handlePost(tweet);
-        console.log(post);
       } catch (e) {
         console.log(e);
       } finally {
@@ -42,11 +41,11 @@ export default function HomePage({ tweets, handlePost }) {
         className="card"
         style={{ textAlign: "center", marginTop: "1rem" }}
       >
-        {tweets?.map((tweet) => (
-          <div key={tweet.date} style={{ marginBottom: "1rem" }}>
+        {tweets?.toReversed().map((tweet) => (
+          <div key={tweet?.id} style={{ marginBottom: "1rem" }}>
             <ReadOnlyTweet
               content={tweet.content}
-              username={tweet.username}
+              userName={tweet.userName}
               date={tweet.date}
             />
           </div>
