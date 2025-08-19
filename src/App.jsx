@@ -7,35 +7,39 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { TweetsProvider } from "./components/TweetsProvider";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
+import { useState } from "react";
 
 function App() {
+  const [isAuthReady, setAuthReady] = useState(false);
   return (
     <>
-      <AuthProvider>
-        <Layout>
-          <TweetsProvider>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <HomePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/login" element={<LoginPage />} />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <ProfilePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </TweetsProvider>
-        </Layout>
+      <AuthProvider onAuthReady={() => setAuthReady(true)}>
+        {isAuthReady && (
+          <Layout>
+            <TweetsProvider>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <HomePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </TweetsProvider>
+          </Layout>
+        )}
       </AuthProvider>
     </>
   );
