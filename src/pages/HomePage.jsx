@@ -20,7 +20,7 @@ export default function HomePage() {
       };
       setNewTweet("");
       try {
-        const post = await handlePost(tweet);
+        await handlePost(tweet);
       } catch (e) {
         console.log(e);
       } finally {
