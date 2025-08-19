@@ -21,18 +21,16 @@ const Navigation = () => {
         <Link to="/profile">Profile</Link>
       </div>
 
-      {activeUser && (
-        <div
-          style={{
-            display: "flex",
-            gap: "1rem",
-            justifyContent: "flex-end",
-          }}
-        >
-          <p>Welcome {activeUser}</p>
-          <button onClick={handleLogout}>Log Out</button>
-        </div>
-      )}
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          justifyContent: "flex-end",
+        }}
+      >
+        <p>Welcome {activeUser.email}</p>
+        <button onClick={handleLogout}>Log Out</button>
+      </div>
     </div>
   );
 };
