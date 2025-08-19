@@ -14,10 +14,23 @@ export function TweetsProvider({ children }) {
     getData();
   }, []);
 
+  useEffect(() => {
+    const refresh = setInterval(async () => {
+      console.log("refreshing page");
+      const data = await getTweets();
+      setTweets(data);
+    }, 60000);
+
+    return () => {
+      clearInterval(refresh);
+    };
+  }, []);
+
   async function handlePost(tweet) {
     const post = await postTweet(tweet);
-    setTweets([tweet, ...tweets]);
-    return post;
+    if (post) {
+      setTweets([tweet, ...tweets]);
+    }
   }
 
   return (
