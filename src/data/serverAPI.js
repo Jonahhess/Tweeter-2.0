@@ -14,7 +14,6 @@ async function getTweets() {
 }
 
 async function postTweet(tweet) {
-  console.log(tweet);
   const post = await fetch(url, {
     method: "POST",
     headers: {
@@ -27,6 +26,8 @@ async function postTweet(tweet) {
     const errorText = await post.text();
     console.log(errorText);
   }
+
+  return post;
 }
 
 export { getTweets, postTweet };
