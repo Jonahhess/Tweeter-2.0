@@ -15,8 +15,9 @@ export default function HomePage() {
       setIsPosting(true);
       const tweet = {
         content: newTweet,
-        userName: activeUser,
+        userName: activeUser.email,
         date: new Date(Date.now()).toISOString(),
+        user_id: activeUser.id,
       };
       setNewTweet("");
       try {
